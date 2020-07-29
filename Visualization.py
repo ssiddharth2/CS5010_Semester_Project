@@ -31,7 +31,7 @@ data=data.round(2)
 data=data.reset_index()
 
 data['Adjusted Benefits Per Beneficiary']=data['Adjusted Benefits Amounts']/data['Beneficiaries']
-data['Percent Population on Welfare']=data['Beneficiaries']/data['Population']
+data['Percent Population on Welfare']=(data['Beneficiaries']/data['Population'])*100
 data=data.sort_values('time').round(2)
 
 
