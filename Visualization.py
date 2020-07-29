@@ -40,3 +40,14 @@ plt.ylabel("Adjusted Benefits Per Beneficiary")
 plt.title("Year: "+str(i) )
 plt.ylim(200,2000)
 plt.xlim(0, 12)
+
+# Save it
+filename='Unemployment Visualization'+str(i)+'.png'
+plt.savefig(filename, dpi=96)
+plt.gca()
+
+'''
+# Then use image magick (this is bash, not python)
+convert -delay 80 Gapminder*.png animated_gapminder.gif
+'''
+
