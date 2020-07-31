@@ -44,12 +44,13 @@ for i in sorted(data["time"].unique()):
 
 # initialize a figure
     fig = plt.figure(figsize=(680/my_dpi, 480/my_dpi), dpi=my_dpi)
- 
+    
 # Change color with c and alpha. I map the color to the X axis value.
     tmp=data[ data["time"] == i ]
-
-    plt.scatter(tmp['Percent Population on Welfare'], tmp['Adjusted Benefits Per Beneficiary'] , s=tmp['Population']/1000 , c=tmp['Region'].cat.codes, cmap="Accent", alpha=0.6, edgecolors="white", linewidth=2)
- 
+    
+    sns.relplot(x='Percent Population on Welfare',y='Adjusted Benefits Per Beneficiary',hue='Region',size=tmp["Population"],alpha=0.6,data=tmp,palette='Set2',sizes=(200,2000),height=7)
+    #plt.scatter(tmp['Percent Population on Welfare'], tmp['Adjusted Benefits Per Beneficiary'] , s=tmp['Population']/1000 , c=tmp['Region'].cat.codes, cmap="Accent", alpha=0.6, edgecolors="white", linewidth=2)
+    #plt.annotate(tmp[tmp["Region"]=="Capital"]["Region"][0],(tmp[tmp["Region"]=="Capital"]['Percent Population on Welfare'][0],tmp[tmp["Region"]=="Capital"]['Adjusted Benefits Per Beneficiary'][0]))
 # Add titles (main and on axis)
 #plt.yscale('log')
     plt.xlabel("Percent Population on Welfare")
@@ -57,6 +58,7 @@ for i in sorted(data["time"].unique()):
     plt.title("Year: "+ str(i) )
     plt.ylim(200,2000)
     plt.xlim(0, 12)
+    #plt.legend(tmp['Region'].cat.codes,tmp['Region'])
 
 # Save it
     filename='Unemployment attempt'+str(i)+'.png'
