@@ -23,8 +23,10 @@ county_clean.iloc[:,6]= [int(amount.replace(",","").strip()) for amount in
                                             county_clean.iloc[:,6]]
 county_clean.iloc[:,7]= [int(amount.replace(",","").strip()) for amount in
                                             county_clean.iloc[:,7]]
+
+
 #Create new column with benefits per beneficiary
-county_clean["Average Benefits per Beneficiary"]=county_clean.iloc[:,7]/county_clean.iloc[:,6] #need to convert to int
+county_clean["Average Benefits per Beneficiary"]=[amount/beneficiary if beneficiary != 0 else 0 for amount,beneficiary in zip(county_clean.iloc[:,7],county_clean.iloc[:,6])] #need to convert to int
 
 #Pull in inflation data from web
 inf_data=pd.read_html('https://www.usinflationcalculator.com/inflation/consumer-price-index-and-annual-percent-changes-from-1913-to-2008/')[0]
