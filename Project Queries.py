@@ -10,25 +10,27 @@ import csv
 import pandas as pd
 
 
+# do a query on rural
+
+
 data = pd.read_csv('cleaned_unemployment.csv',header=0,encoding = "ISO-8859-1")
 
 
-
 print(data.head(0))
-
 # columns: unnamed, County, Year, Month, Region, Beneficiaries,  Benefit Amounts (Dollars) , Average Benefits per Beneficiary, Inflation Rate, Adjusted Benefits Per Beneficiary, Adjusted Benefits Amounts, Population, Percent Population on Welfare
 
+print('Some exploratory queries:\n')
 
-
+print('Adjusted Benefits per Beneficiary, top 10')
 print(data.sort_values(by = 'Adjusted Benefits Per Beneficiary', ascending = False).head(10)) 
-print(data.sort_values(by = 'Average Benefits per Beneficiary', ascending = False).head(10)) 
-# hamilton comes up for both, which is incorrect
+
 
 # Which county and month/year has the highest spend on benefit
-print('Which county and month/year has the highest spend on benefit')
+print('Which county and month/year has the highest spend on benefits?')
 print(data.sort_values(by = 'Adjusted Benefits Amounts', ascending = False).head(10)) 
+# queens
 
-# Which county and month/year has the highest population
+# Which county and month/year has the highest populations
 print("Which county and month/year has the highest population")
 print(data.sort_values(by = 'Population', ascending = False).head(10)) 
 # kings county - brooklyn
@@ -57,6 +59,7 @@ print(data[ data['Year']==2020].sort_values(by = 'Adjusted Benefits Amounts', as
 print('Queens pays the most benefits - taking a look at this county specifically')
 print(data[data['County']=='Queens'].sort_values(by = 'Percent Population on Welfare', ascending=False))
 
+print('Queries to explore further with visualizations:\n')
 
 # % Population on unemployment per year - looking at top years 
 print('% Population on unemployment per year - looking at top years ')
@@ -66,10 +69,21 @@ print(data.groupby('Year').agg({'Percent Population on Welfare': 'mean'}).sort_v
 # 2001 -> september 11th, dotcom bubble
 # 2007-2009 -> great recession
 # 2020 -> COVID 19 recession
-
+# bar graph
 
 # Looking at last 18 months of data - COVID trend
 print('Looking at last 18 months of data - COVID trend')
 print(data.groupby(['Year', 'Month']).agg({'Percent Population on Welfare': 'mean'}).sort_values(by = ['Year','Month'],ascending = False).head(18))
+# bar graph
 
+# Rural vs. Non-rural
+print('Rural vs. Non-Rural in 2020')
+print(data[data['Year']==2020].groupby('is Rural').agg({'Percent Population on Welfare': 'mean'}))
 
+print(data.groupby(['Year', 'is Rural']).agg({'Percent Population on Welfare': 'mean'}).sort_values(by = ['Year','is Rural'],ascending = False))
+
+# New York City County vs. rest of NY
+print("Average Percent of New York City County on Unemployment")
+print(data[data['County']=='New York'].agg({'Percent Population on Welfare': 'mean'}))
+print("Average Percent of the rest of New York on Unemployment")
+print(data[data['County']!='New York'].agg({'Percent Population on Welfare': 'mean'}))
