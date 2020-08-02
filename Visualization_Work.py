@@ -135,24 +135,18 @@ create_your_graph()
 
 #Comparing Percent Population Over Time For New York City And The Rest Of New York
 fig= px.line(new_data, x="time", y="Percent Population on Welfare", color='is New York')
-
-
 new_data['Benefits Per Beneficiary']=(new_data["Adjusted Benefits Amounts"]/new_data["Beneficiaries"])
-
 
 fig= px.line(new_data, x="time", y="Adjusted Benefits Amounts", color='is New York')
 fig.show()
 
-
 fig= px.line(new_data, x="time", y="Benefits Per Beneficiary", color='is New York')
 fig.show()
-
 
 new_data['Benefits Per Beneficiary Percent Changes']=new_data['Benefits Per Beneficiary'].pct_change()
 
 fig= px.line(new_data, x="time", y="Benefits Per Beneficiary Percent Changes", color='is New York')
 fig.show()
-
 
 fig= px.line(new_data, x="time", y="Beneficiaries", color='is New York')
 fig.show()
@@ -166,13 +160,9 @@ recession_2001["Month"]=recession_2001["Month"].replace([1,2,3,4,5,6,7,8,9,10,11
 recession_2001["Month"]=[month+" "+str(year) for month,year in zip(recession_2001["Month"],recession_2001["Year"])]
 recession_2001=recession_2001.sort_values('time')
 
-
 recession_2001.groupby('is New York')['Percent Population on Welfare'].mean().round(2)
 
-
-
 recession_2001.groupby('is New York')['Percent Population on Welfare'].max().round(2)
-
 
 fig= px.line(recession_2001, x="Month", y="Percent Population on Welfare", color='is New York')
 fig.show()
@@ -180,26 +170,18 @@ fig.show()
 
 #2008 Recession
 
-
 recession_2007=new_data[new_data['time']> dt.datetime(2007,11,1)]
 recession_2007=recession_2007[recession_2007['time']< dt.datetime(2009,7,1)]
 
-
 recession_2007.groupby('is New York')['Percent Population on Welfare'].mean().round(2)
 
-
-
-
 recession_2007.groupby('is New York')['Percent Population on Welfare'].max().round(2)
-
-
 
 fig= px.line(recession_2007, x="time", y="Percent Population on Welfare", color='is New York')
 fig.show()
 
 
-#Covid-19 Recession
-
+#Covid-19 Recession Plot
 
 recession_2020=new_data[new_data['time']> dt.datetime(2020,1,1)]
 recession_2020=recession_2020[recession_2020['time']< dt.datetime(2020,7,1)]
@@ -208,14 +190,11 @@ recession_2020["Month"]=[month+" "+str(year) for month,year in zip(recession_202
 recession_2020=recession_2020.sort_values('time')
 recession_2020.groupby('is New York')['Percent Population on Welfare'].max().round(2)
 
-
-
 fig= px.line(recession_2020, x="Month", y="Percent Population on Welfare", color='is New York')
 fig.show()
 
 
 #Covid 19 Effect on New York City Counties
-
 
 recession_nyc_2020=nyc_data[nyc_data['time']> dt.datetime(2020,1,1)]
 recession_nyc_2020=recession_nyc_2020[recession_nyc_2020['time']< dt.datetime(2020,7,1)]
@@ -224,18 +203,14 @@ recession_nyc_2020["Month"]=[month+" "+str(year) for month,year in zip(recession
 recession_nyc_2020=recession_nyc_2020.sort_values('time')
 recession_nyc_2020.groupby('County')['Percent Population on Welfare'].mean()
 
-
-
 fig= px.line(recession_nyc_2020, x="Month", y="Percent Population on Welfare", color='County')
 fig.show()
-
 
 fig= px.scatter(recession_nyc_2020, x="Month", y="Adjusted Benefits Per Beneficiary", color='County',size='Beneficiaries')
 fig.show()
 
 
 #The Average Percent Population on Welfare Over The Years(INACCURATE)
-
 
 year_comp=data.groupby(['Year'])['Beneficiaries','Population'].sum().reset_index()
 year_comp
