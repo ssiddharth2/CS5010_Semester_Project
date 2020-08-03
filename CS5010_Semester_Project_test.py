@@ -1,10 +1,8 @@
-
+import os
+os.getcwd()
 
 import unittest
 
-import os
-os.getcwd()
-os.chdir('c:\\Users\\emkmu\\OneDrive\\Documents\\SDS\\CS 5010\\Project\\CS5010_Semester_Project')
 
 from CS5010_Semester_Project import *
 
@@ -23,7 +21,11 @@ class Unemployment(unittest.TestCase):
     # Test to check the data starts with the year 2001
     def test_min_year_is_2001(self):
         
-        self.assertEqual(county_clean['Year'].min(),2001)       
+        self.assertEqual(county_clean['Year'].min(),2001)    
+    
+    def test_column_number(self):
+        
+        self.assertEqual(len(county_clean.columns), 13)
         
 if __name__ == '__main__':
     unittest.main()   
