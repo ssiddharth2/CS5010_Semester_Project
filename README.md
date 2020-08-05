@@ -9,5 +9,6 @@ We also have numerous visualizations
 Other .csv file were the files used to create our final cleaned dataset
 Presentation:... is our powerpoint slides used for our presentation
 CS5010 Project 1 Write-Up.pdf is our write-up
+Project Queries.py is a collection of preliminary queries run on our dataset
 We also are submitting our .py files in their jupyter notebook form
 
